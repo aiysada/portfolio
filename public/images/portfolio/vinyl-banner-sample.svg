@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="60%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#bae6fd" />
+    </linearGradient>
+    <linearGradient id="bannerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#skyBg)" />
+
+  <!-- Steel Truss Billboard Support -->
+  <line x1="240" y1="360" x2="240" y2="600" stroke="#334155" stroke-width="12" />
+  <line x1="560" y1="360" x2="560" y2="600" stroke="#334155" stroke-width="12" />
+  <line x1="240" y1="450" x2="560" y2="520" stroke="#475569" stroke-width="6" />
+  <line x1="560" y1="450" x2="240" y2="520" stroke="#475569" stroke-width="6" />
+
+  <!-- Outdoor Billboard Banner Canvas -->
+  <rect x="120" y="100" width="560" height="280" rx="12" fill="#0f172a" stroke="#cbd5e1" stroke-width="6" />
+  <rect x="135" y="115" width="530" height="250" rx="8" fill="url(#bannerBg)" />
+
+  <!-- Grommet Holes at Corners -->
+  <circle cx="150" cy="130" r="6" fill="#475569" stroke="#ffffff" stroke-width="2" />
+  <circle cx="650" cy="130" r="6" fill="#475569" stroke="#ffffff" stroke-width="2" />
+  <circle cx="150" cy="350" r="6" fill="#475569" stroke="#ffffff" stroke-width="2" />
+  <circle cx="650" cy="350" r="6" fill="#475569" stroke="#ffffff" stroke-width="2" />
+
+  <!-- Banner Content -->
+  <text x="400" y="200" font-family="'Noto Sans Lao', sans-serif" font-weight="900" font-size="34" fill="#ffffff" text-anchor="middle">
+    ງານພິມໄວນິວຫຼັງດຳ 130,000 ກີບ/m²
+  </text>
+  <text x="400" y="245" font-family="'Noto Sans Lao', sans-serif" font-weight="600" font-size="20" fill="#fef08a" text-anchor="middle">
+    ທົນແດດ ທົນຝົນ ສີສົດຄົມຊັດ ຂະໜາດໃຫຍ່ພິເສດ
+  </text>
+  <text x="400" y="285" font-family="'Noto Sans Lao', sans-serif" font-weight="500" font-size="15" fill="#ffffff" text-anchor="middle">
+    ໂຄງສ້າງເຫຼັກມາດຕະຖານ • ຕົວຢ່າງຜົນງານ
+  </text>
+
+  <!-- Tag -->
+  <rect x="330" y="305" width="140" height="24" rx="12" fill="#ffffff" opacity="0.9" />
+  <text x="400" y="321" font-family="'Noto Sans Lao', sans-serif" font-weight="700" font-size="11" fill="#ea580c" text-anchor="middle">
+    SAMPLE DEMO
+  </text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gridBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+    <linearGradient id="brandOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#gridBg)" />
+
+  <!-- Blueprint / Grid Background Lines -->
+  <g stroke="#cbd5e1" stroke-width="0.8" opacity="0.6">
+    <line x1="100" y1="0" x2="100" y2="600" />
+    <line x1="200" y1="0" x2="200" y2="600" />
+    <line x1="300" y1="0" x2="300" y2="600" />
+    <line x1="400" y1="0" x2="400" y2="600" />
+    <line x1="500" y1="0" x2="500" y2="600" />
+    <line x1="600" y1="0" x2="600" y2="600" />
+    <line x1="700" y1="0" x2="700" y2="600" />
+    <line x1="0" y1="100" x2="800" y2="100" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+    <line x1="0" y1="400" x2="800" y2="400" />
+    <line x1="0" y1="500" x2="800" y2="500" />
+  </g>
+
+  <!-- Vector Logo Construction Geometry -->
+  <circle cx="400" cy="240" r="110" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4 4" />
+  <circle cx="400" cy="240" r="70" fill="url(#brandOrange)" />
+  <polygon points="375,200 425,240 375,280" fill="#ffffff" />
+
+  <!-- Logo Title -->
+  <text x="400" y="390" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="32" fill="#0f172a" text-anchor="middle" letter-spacing="2">
+    BRAND IDENTITY DESIGN
+  </text>
+  <text x="400" y="425" font-family="'Noto Sans Lao', sans-serif" font-weight="600" font-size="18" fill="#475569" text-anchor="middle">
+    ອອກແບບໂລໂກ້ & ລະບົບເອກະລັກແບຣນ • ຕົວຢ່າງຜົນງານ
+  </text>
+
+  <rect x="330" y="450" width="140" height="24" rx="12" fill="#f97316" opacity="0.15" />
+  <text x="400" y="466" font-family="'Noto Sans Lao', sans-serif" font-size="11" fill="#ea580c" text-anchor="middle">
+    SAMPLE DEMO
+  </text>
+</svg>
