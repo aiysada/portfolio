@@ -3,9 +3,24 @@ import { BrandLogo } from "@/components/common/BrandLogo";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { BUSINESS_CONFIG } from "@/constants/business";
 import { FOOTER_NAV_GROUPS } from "@/constants/navigation";
+import { useOwnerSettings } from "@/context/OwnerSettingsContext";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { settings } = useOwnerSettings();
+
+  const rawPhone = settings?.business?.phone || BUSINESS_CONFIG.contact.phone;
+  const digitsOnly = rawPhone.replace(/\D/g, "");
+  let waNumber = digitsOnly;
+  if (waNumber.startsWith("020")) {
+    waNumber = "85620" + waNumber.slice(3);
+  } else if (waNumber.startsWith("20") && waNumber.length === 10) {
+    waNumber = "856" + waNumber;
+  }
+  const whatsappUrl = waNumber ? `https://wa.me/${waNumber}` : BUSINESS_CONFIG.social.whatsappUrl;
+  const displayPhone = settings?.business?.phone || BUSINESS_CONFIG.contact.displayPhone;
+  const displayAddress = settings?.business?.addressLao || settings?.business?.address || BUSINESS_CONFIG.contact.locationLao;
+  const displayEmail = settings?.business?.email || BUSINESS_CONFIG.contact.email;
 
   return (
     <footer className="border-t border-border bg-card text-card-foreground transition-colors duration-200">
@@ -58,40 +73,40 @@ export function Footer() {
               ຂໍ້ມູນຕິດຕໍ່ (Contact)
             </h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              {BUSINESS_CONFIG.contact.locationLao && (
+              {displayAddress && (
                 <li className="flex items-start gap-2.5">
                   <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                  <span>{BUSINESS_CONFIG.contact.locationLao}</span>
+                  <span>{displayAddress}</span>
                 </li>
               )}
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-primary shrink-0" />
                 <a
-                  href={`tel:${BUSINESS_CONFIG.contact.phone}`}
+                  href={`tel:${rawPhone}`}
                   className="hover:text-primary transition-colors font-semibold text-foreground"
                 >
-                  {BUSINESS_CONFIG.contact.displayPhone}
+                  {displayPhone}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <MessageCircle className="h-4 w-4 text-emerald-500 shrink-0" />
                 <a
-                  href={BUSINESS_CONFIG.social.whatsappUrl}
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-emerald-500 transition-colors"
                 >
-                  WhatsApp: {BUSINESS_CONFIG.contact.displayPhone}
+                  WhatsApp: {displayPhone}
                 </a>
               </li>
-              {BUSINESS_CONFIG.contact.email && (
+              {displayEmail && (
                 <li className="flex items-center gap-2.5">
                   <Mail className="h-4 w-4 text-primary shrink-0" />
                   <a
-                    href={`mailto:${BUSINESS_CONFIG.contact.email}`}
+                    href={`mailto:${displayEmail}`}
                     className="hover:text-primary transition-colors"
                   >
-                    {BUSINESS_CONFIG.contact.email}
+                    {displayEmail}
                   </a>
                 </li>
               )}

@@ -125,6 +125,9 @@ export function HomePage() {
                   <img
                     src="/images/portfolio/lightbox-sample.svg"
                     alt="ຕົວຢ່າງປ້າຍກ່ອງໄຟ LED Indie Sign"
+                    width={600}
+                    height={450}
+                    fetchPriority="high"
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute bottom-3 left-3 rounded-md bg-black/70 px-2.5 py-1 text-[11px] font-semibold text-amber-300 backdrop-blur-md">
@@ -223,6 +226,11 @@ export function HomePage() {
                     src={item.image}
                     alt={item.altTextLao}
                     loading="lazy"
+                    width={400}
+                    height={300}
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = "/images/portfolio/lightbox-sample.svg";
+                    }}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute top-2 left-2 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-semibold text-amber-300 backdrop-blur-sm">

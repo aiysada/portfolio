@@ -65,12 +65,13 @@ export function computeLineSubtotal(
   unitPrice: number,
   quantity: number
 ): number {
-  const price = safe(unitPrice);
-  const qty = safe(quantity);
+  const price = Math.max(0, safe(unitPrice));
+  const qty = Math.max(0, safe(quantity));
+  const area = Math.max(0, safe(areaM2));
 
   switch (pricingMethod) {
     case "per_m2":
-      return safe(areaM2) * price * qty;
+      return area * price * qty;
     case "per_item":
     case "fixed":
     case "manual":

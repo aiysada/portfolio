@@ -4,7 +4,7 @@
  * dimension conversions, additional charges, discounts, taxes, and instant recalculation.
  */
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Calculator,
   Plus,
@@ -23,8 +23,14 @@ import { AddLineSelector } from "@/components/calculator/AddLineSelector";
 import { AdditionalChargesSection } from "@/components/calculator/AdditionalChargesSection";
 import { DiscountTaxSection } from "@/components/calculator/DiscountTaxSection";
 import { QuoteSummaryCard } from "@/components/calculator/QuoteSummaryCard";
+import { DocumentWorkflowDialog } from "@/components/documents/DocumentWorkflowDialog";
+import { SaveQuoteDialog } from "@/components/calculator/SaveQuoteDialog";
 
 export function CalculatorPage() {
+  const [isDocModalOpen, setIsDocModalOpen] = useState(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  // Track whether the current session's quote has been saved (to offer update vs. new copy)
+  const [savedRecordId, setSavedRecordId] = useState<string | undefined>(undefined);
   const {
     lines,
     charges,
@@ -192,9 +198,36 @@ export function CalculatorPage() {
             summary={summary}
             lines={lines}
             onReset={resetAll}
+            onOpenDocumentWorkflow={() => setIsDocModalOpen(true)}
+            onSaveQuote={() => setIsSaveModalOpen(true)}
+            isSaved={!!savedRecordId}
           />
         </div>
       </div>
+
+      {/* Document Workflow & PDF Generation Modal */}
+      <DocumentWorkflowDialog
+        isOpen={isDocModalOpen}
+        onClose={() => setIsDocModalOpen(false)}
+        lines={lines}
+        charges={charges}
+        discount={discount}
+        tax={tax}
+        summary={summary}
+      />
+
+      {/* Save Quote Dialog */}
+      <SaveQuoteDialog
+        isOpen={isSaveModalOpen}
+        onClose={() => setIsSaveModalOpen(false)}
+        lines={lines}
+        charges={charges}
+        discount={discount}
+        tax={tax}
+        summary={summary}
+        existingRecordId={savedRecordId}
+        onSaved={(id) => setSavedRecordId(id)}
+      />
     </PageContainer>
   );
 }

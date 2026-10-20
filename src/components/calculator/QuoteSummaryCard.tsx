@@ -11,6 +11,9 @@ import {
   MessageCircle,
   RotateCcw,
   AlertTriangle,
+  FileText,
+  Save,
+  CheckCircle2,
 } from "lucide-react";
 import type { QuoteSummary, QuoteLineItem } from "@/types/calculator";
 import { formatMoney } from "@/lib/money";
@@ -21,12 +24,20 @@ interface QuoteSummaryCardProps {
   summary: QuoteSummary;
   lines: QuoteLineItem[];
   onReset: () => void;
+  onOpenDocumentWorkflow?: () => void;
+  /** Called to open the Save Quote dialog */
+  onSaveQuote?: () => void;
+  /** Whether this calculator session already has a saved record */
+  isSaved?: boolean;
 }
 
 export const QuoteSummaryCard: React.FC<QuoteSummaryCardProps> = ({
   summary,
   lines,
   onReset,
+  onOpenDocumentWorkflow,
+  onSaveQuote,
+  isSaved = false,
 }) => {
   const [copied, setCopied] = useState(false);
   const [showConfirmReset, setShowConfirmReset] = useState(false);
@@ -216,6 +227,46 @@ export const QuoteSummaryCard: React.FC<QuoteSummaryCardProps> = ({
 
         {/* Action Buttons */}
         <div className="space-y-2 pt-2">
+          {/* Open Document Generator */}
+          {onOpenDocumentWorkflow && (
+            <Button
+              type="button"
+              onClick={onOpenDocumentWorkflow}
+              disabled={lines.length === 0}
+              className="w-full text-xs font-bold h-11 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20"
+            >
+              <FileText className="h-4 w-4 mr-2" />
+              ອອກເອກະສານ PDF (Quotation / Invoice / Receipt)
+            </Button>
+          )}
+
+          {/* Save Quote to History */}
+          {onSaveQuote && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onSaveQuote}
+              disabled={lines.length === 0}
+              className={`w-full text-xs font-bold h-10 ${
+                isSaved
+                  ? "border-emerald-500/50 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/5"
+                  : "border-primary/40 text-primary hover:bg-primary/5"
+              }`}
+            >
+              {isSaved ? (
+                <>
+                  <CheckCircle2 className="h-4 w-4 mr-1.5" />
+                  ບັນທຶກໃໝ່ / ອັບເດດໃບປະເມີນ
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4 mr-1.5" />
+                  ບັນທຶກໃບປະເມີນ (Save Quote)
+                </>
+              )}
+            </Button>
+          )}
+
           {/* Copy Plain Text */}
           <Button
             type="button"

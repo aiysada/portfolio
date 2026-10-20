@@ -16,7 +16,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       onClick={toggleTheme}
       className={className}
       title={resolvedTheme === "dark" ? "ປ່ຽນເປັນໂໝດສະຫວ່າງ (Light Mode)" : "ປ່ຽນເປັນໂໝດມືດ (Dark Mode)"}
-      aria-label="Toggle theme"
+      aria-label={resolvedTheme === "dark" ? "ປ່ຽນເປັນໂໝດສະຫວ່າງ" : "ປ່ຽນເປັນໂໝດມືດ"}
     >
       {resolvedTheme === "dark" ? (
         <Sun className="h-5 w-5 text-amber-400 transition-transform hover:rotate-45" />

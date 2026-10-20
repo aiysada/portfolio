@@ -14,17 +14,30 @@ import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { BUSINESS_CONFIG } from "@/constants/business";
+import { useOwnerSettings } from "@/context/OwnerSettingsContext";
 
 export function ContactPage() {
+  const { settings } = useOwnerSettings();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [signType, setSignType] = useState("ປ້າຍກ່ອງໄຟ LED");
   const [details, setDetails] = useState("");
 
+  const rawPhone = settings?.business?.phone || BUSINESS_CONFIG.contact.phone;
+  const digitsOnly = rawPhone.replace(/\D/g, "");
+  let waNumber = digitsOnly;
+  if (waNumber.startsWith("020")) {
+    waNumber = "85620" + waNumber.slice(3);
+  } else if (waNumber.startsWith("20") && waNumber.length === 10) {
+    waNumber = "856" + waNumber;
+  }
+  const baseWaUrl = waNumber ? `https://wa.me/${waNumber}` : BUSINESS_CONFIG.social.whatsappUrl;
+  const displayPhone = settings?.business?.phone || BUSINESS_CONFIG.contact.displayPhone;
+
   // Build direct WhatsApp link with prefilled message
   const generateWhatsAppUrl = () => {
     const text = `ສະບາຍດີ Indie Sign,\nຂ້າພະເຈົ້າຊື່: ${name || "-"}\nເບີໂທ: ${phone || "-"}\nສົນໃຈປ້າຍປະເພດ: ${signType}\nລາຍລະອຽດເພີ່ມເຕີມ: ${details || "ຕ້ອງການສອບຖາມລາຄາ ແລະ ປຶກສາແນວທາງ"}`;
-    return `${BUSINESS_CONFIG.social.whatsappUrl}?text=${encodeURIComponent(text)}`;
+    return `${baseWaUrl}?text=${encodeURIComponent(text)}`;
   };
 
   const handleSendViaWhatsApp = (e: React.FormEvent) => {
@@ -64,12 +77,12 @@ export function ContactPage() {
               </p>
               <div className="pt-1">
                 <a
-                  href={BUSINESS_CONFIG.social.whatsappUrl}
+                  href={baseWaUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-base font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
                 >
-                  <span>{BUSINESS_CONFIG.contact.displayPhone}</span>
+                  <span>{displayPhone}</span>
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
@@ -86,10 +99,10 @@ export function ContactPage() {
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <a
-                href={`tel:${BUSINESS_CONFIG.contact.phone}`}
+                href={`tel:${rawPhone}`}
                 className="text-base font-bold text-foreground hover:text-primary transition-colors block"
               >
-                {BUSINESS_CONFIG.contact.displayPhone}
+                {displayPhone}
               </a>
               <p className="text-xs text-muted-foreground">
                 ກົດເພື່ອໂທອອກໄດ້ທັນທີ ສຳລັບສອບຖາມຂໍ້ມູນດ່ວນ

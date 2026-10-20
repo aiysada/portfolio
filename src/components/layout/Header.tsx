@@ -7,10 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MAIN_NAV_ITEMS, OWNER_NAV_ITEM } from "@/constants/navigation";
 import { BUSINESS_CONFIG } from "@/constants/business";
+import { useOwnerSettings } from "@/context/OwnerSettingsContext";
 import { cn } from "@/lib/utils";
 
 export function Header() {
+  const { settings } = useOwnerSettings();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const rawPhone = settings?.business?.phone || BUSINESS_CONFIG.contact.phone;
+  const displayPhone = settings?.business?.phone || BUSINESS_CONFIG.contact.displayPhone;
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -94,9 +99,9 @@ export function Header() {
             size="sm"
             className="hidden sm:inline-flex items-center gap-2 rounded-lg text-xs font-medium"
           >
-            <a href={`tel:${BUSINESS_CONFIG.contact.phone}`}>
+            <a href={`tel:${rawPhone}`}>
               <PhoneCall className="h-3.5 w-3.5" />
-              <span>{BUSINESS_CONFIG.contact.displayPhone}</span>
+              <span>{displayPhone}</span>
             </a>
           </Button>
 
@@ -167,9 +172,9 @@ export function Header() {
                 variant="orangeGlow"
                 className="w-full flex items-center justify-center gap-2 rounded-xl py-2.5"
               >
-                <a href={`tel:${BUSINESS_CONFIG.contact.phone}`} onClick={closeMobileMenu}>
+                <a href={`tel:${rawPhone}`} onClick={closeMobileMenu}>
                   <PhoneCall className="h-4 w-4" />
-                  <span>ໂທສອບຖາມດ່ວນ: {BUSINESS_CONFIG.contact.displayPhone}</span>
+                  <span>ໂທສອບຖາມດ່ວນ: {displayPhone}</span>
                 </a>
               </Button>
             </div>

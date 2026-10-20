@@ -1,0 +1,16 @@
+{
+  "name": "Indie Sign — ບໍລິການອອກແບບ ແລະ ຜະລິດປ້າຍຄົບວົງຈອນ",
+  "short_name": "Indie Sign",
+  "description": "ຜູ້ຊ່ຽວຊານດ້ານການອອກແບບ ແລະ ຜະລິດປ້າຍໂຄສະນາຄົບວົງຈອນ ຄຳນວນລາຄາ ອອກໃບສະເໜີລາຄາ ພ້ອມຜົນງານຄຸນນະພາບສູງ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#ea580c",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

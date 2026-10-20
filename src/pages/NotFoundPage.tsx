@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AlertCircle, Home, ArrowLeft } from "lucide-react";
+import { AlertCircle, Home, ArrowLeft, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function NotFoundPage() {
@@ -20,7 +20,7 @@ export function NotFoundPage() {
         ຂໍອະໄພ, ໜ້າເວັບທີ່ທ່ານກຳລັງຊອກຫາອາດຖືກຍ້າຍ, ລຶບອອກ, ຫຼື ຍັງບໍ່ທັນເປີດໃຫ້ບໍລິການໃນເວລານີ້.
       </p>
 
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <Button asChild variant="orangeGlow" size="lg" className="rounded-xl">
           <Link to="/" className="flex items-center gap-2">
             <Home className="h-4 w-4" />
@@ -28,10 +28,17 @@ export function NotFoundPage() {
           </Link>
         </Button>
 
+        <Button asChild variant="outline" size="lg" className="rounded-xl">
+          <Link to="/calculator" className="flex items-center gap-2">
+            <Calculator className="h-4 w-4 text-primary" />
+            <span>ຄຳນວນລາຄາປ້າຍ</span>
+          </Link>
+        </Button>
+
         <Button
-          variant="outline"
+          variant="ghost"
           size="lg"
-          className="rounded-xl"
+          className="rounded-xl text-muted-foreground"
           onClick={() => window.history.back()}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />

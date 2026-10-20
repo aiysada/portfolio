@@ -20,6 +20,7 @@ import type {
 } from "@/types/calculator";
 import { computeLine, computeQuoteSummary } from "@/lib/pricing";
 import { CALC_PRODUCTS, findCalcProduct } from "@/data/calculatorProducts";
+import { useOwnerSettings } from "@/context/OwnerSettingsContext";
 
 // ─── ID Generator ───
 
@@ -104,10 +105,27 @@ function recalcLine(line: QuoteLineItem): QuoteLineItem {
 // ─── Hook ───
 
 export function useQuoteCalculator() {
+  let ownerContext: ReturnType<typeof useOwnerSettings> | null = null;
+  try {
+    ownerContext = useOwnerSettings();
+  } catch {
+    // In environments without provider (e.g. isolated unit tests)
+  }
+
+  const liveProducts = ownerContext ? ownerContext.settings.products : CALC_PRODUCTS;
+
   const [lines, setLines] = useState<QuoteLineItem[]>([]);
   const [charges, setCharges] = useState<AdditionalCharges>(DEFAULT_CHARGES);
   const [discount, setDiscount] = useState<DiscountConfig>(DEFAULT_DISCOUNT);
   const [tax, setTax] = useState<TaxConfig>(DEFAULT_TAX);
+
+  // Helper to find a product in live products or fallback
+  const getProduct = useCallback(
+    (productId: string): CalcProduct | undefined => {
+      return liveProducts.find((p) => p.id === productId) || findCalcProduct(productId);
+    },
+    [liveProducts]
+  );
 
   // ─── Summary (always computed from current state) ───
 
@@ -118,20 +136,23 @@ export function useQuoteCalculator() {
 
   // ─── Line Actions ───
 
-  const addLine = useCallback((productId: string) => {
-    const product = findCalcProduct(productId);
-    if (!product) return;
-    const newLine = createLineFromProduct(product);
-    setLines((prev) => [...prev, newLine]);
-  }, []);
+  const addLine = useCallback(
+    (productId: string) => {
+      const product = getProduct(productId);
+      if (!product) return;
+      const newLine = createLineFromProduct(product);
+      setLines((prev) => [...prev, newLine]);
+    },
+    [getProduct]
+  );
 
   const addCustomLine = useCallback(() => {
-    const custom = findCalcProduct("calc-custom");
+    const custom = getProduct("calc-custom") || findCalcProduct("calc-custom");
     if (custom) {
       const newLine = createLineFromProduct(custom);
       setLines((prev) => [...prev, newLine]);
     }
-  }, []);
+  }, [getProduct]);
 
   const removeLine = useCallback((lineId: string) => {
     setLines((prev) => prev.filter((l) => l.id !== lineId));
@@ -208,7 +229,7 @@ export function useQuoteCalculator() {
 
   const updateLineProduct = useCallback(
     (lineId: string, productId: string) => {
-      const product = findCalcProduct(productId);
+      const product = getProduct(productId);
       if (!product) return;
       updateLine(lineId, {
         productId: product.id,
@@ -298,7 +319,7 @@ export function useQuoteCalculator() {
     discount,
     tax,
     summary,
-    products: CALC_PRODUCTS,
+    products: liveProducts,
 
     // Line actions
     addLine,

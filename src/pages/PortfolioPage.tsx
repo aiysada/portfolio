@@ -71,30 +71,49 @@ export function PortfolioPage() {
         })}
       </div>
 
-      {/* Responsive Gallery Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredItems.map((item) => (
-          <div
-            key={item.id}
-            onClick={() => setActiveItem(item)}
-            className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-orange-500/5 cursor-pointer flex flex-col"
+      {/* Responsive Gallery Grid & Empty State */}
+      {filteredItems.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-border p-12 text-center my-6 bg-card/50">
+          <p className="text-sm font-semibold text-foreground">ຍັງບໍ່ມີລາຍການຜົນງານໃນໝວດໝູ່ນີ້</p>
+          <p className="text-xs text-muted-foreground mt-1">ທ່ານສາມາດເລືອກເບິ່ງໝວດໝູ່ອື່ນ ຫຼື ກົດປຸ່ມດ້ານລຸ່ມເພື່ອເບິ່ງຜົນງານທັງໝົດ</p>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setSelectedCategory("all")}
+            className="mt-4 rounded-xl text-xs font-bold"
           >
-            {/* Defined Aspect Ratio to prevent layout shifts */}
-            <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
-              <img
-                src={item.image}
-                alt={item.altTextLao}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+            ເບິ່ງຜົນງານທັງໝົດ
+          </Button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredItems.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => setActiveItem(item)}
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-orange-500/5 cursor-pointer flex flex-col"
+            >
+              {/* Defined Aspect Ratio to prevent layout shifts */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+                <img
+                  src={item.image}
+                  alt={item.altTextLao}
+                  loading="lazy"
+                  width={600}
+                  height={450}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = "/images/portfolio/lightbox-sample.svg";
+                  }}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
 
-              {/* Sample Tag */}
-              {item.isSample && (
-                <div className="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-0.5 text-[10px] font-semibold text-amber-300 backdrop-blur-md flex items-center gap-1 border border-amber-500/20">
-                  <Sparkles className="h-3 w-3" />
-                  <span>ຕົວຢ່າງ</span>
-                </div>
-              )}
+                {/* Sample Tag */}
+                {item.isSample && (
+                  <div className="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-0.5 text-[10px] font-semibold text-amber-300 backdrop-blur-md flex items-center gap-1 border border-amber-500/20">
+                    <Sparkles className="h-3 w-3" />
+                    <span>ຕົວຢ່າງ</span>
+                  </div>
+                )}
 
               {/* Hover Overlay with Preview Icon */}
               <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-center">
@@ -126,6 +145,7 @@ export function PortfolioPage() {
           </div>
         ))}
       </div>
+    )}
 
       {/* CTA Box linking to Calculator & Contact */}
       <div className="mt-16 rounded-2xl border border-primary/20 bg-gradient-to-br from-card via-card to-orange-500/5 p-8 text-center sm:text-left sm:flex sm:items-center sm:justify-between gap-6">

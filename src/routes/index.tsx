@@ -1,13 +1,17 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { MainLayout } from "@/layouts/MainLayout";
 import { HomePage } from "@/pages/HomePage";
-import { ServicesPage } from "@/pages/ServicesPage";
-import { PortfolioPage } from "@/pages/PortfolioPage";
-import { CalculatorPage } from "@/pages/CalculatorPage";
-import { AboutPage } from "@/pages/AboutPage";
-import { ContactPage } from "@/pages/ContactPage";
-import { OwnerPage } from "@/pages/OwnerPage";
-import { NotFoundPage } from "@/pages/NotFoundPage";
+import { PageLoadingFallback } from "@/components/common/PageLoadingFallback";
+
+// Route-level code splitting for production performance & bundle reduction
+const ServicesPage = lazy(() => import("@/pages/ServicesPage").then((m) => ({ default: m.ServicesPage })));
+const PortfolioPage = lazy(() => import("@/pages/PortfolioPage").then((m) => ({ default: m.PortfolioPage })));
+const CalculatorPage = lazy(() => import("@/pages/CalculatorPage").then((m) => ({ default: m.CalculatorPage })));
+const AboutPage = lazy(() => import("@/pages/AboutPage").then((m) => ({ default: m.AboutPage })));
+const ContactPage = lazy(() => import("@/pages/ContactPage").then((m) => ({ default: m.ContactPage })));
+const OwnerPage = lazy(() => import("@/pages/OwnerPage").then((m) => ({ default: m.OwnerPage })));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })));
 
 export const router = createBrowserRouter([
   {
@@ -20,11 +24,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "portfolio",
-        element: <PortfolioPage />,
+        element: (
+          <Suspense fallback={<PageLoadingFallback />}>
+            <PortfolioPage />
+          </Suspense>
+        ),
       },
       {
         path: "services",
-        element: <ServicesPage />,
+        element: (
+          <Suspense fallback={<PageLoadingFallback />}>
+            <ServicesPage />
+          </Suspense>
+        ),
       },
       {
         // Backward-compatible alias for /products -> /services
@@ -33,19 +45,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "calculator",
-        element: <CalculatorPage />,
+        element: (
+          <Suspense fallback={<PageLoadingFallback />}>
+            <CalculatorPage />
+          </Suspense>
+        ),
       },
       {
         path: "about",
-        element: <AboutPage />,
+        element: (
+          <Suspense fallback={<PageLoadingFallback />}>
+            <AboutPage />
+          </Suspense>
+        ),
       },
       {
         path: "contact",
-        element: <ContactPage />,
+        element: (
+          <Suspense fallback={<PageLoadingFallback />}>
+            <ContactPage />
+          </Suspense>
+        ),
       },
       {
         path: "owner",
-        element: <OwnerPage />,
+        element: (
+          <Suspense fallback={<PageLoadingFallback />}>
+            <OwnerPage />
+          </Suspense>
+        ),
       },
       {
         // Backward-compatible alias for /settings -> /owner
@@ -54,7 +82,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFoundPage />,
+        element: (
+          <Suspense fallback={<PageLoadingFallback />}>
+            <NotFoundPage />
+          </Suspense>
+        ),
       },
     ],
   },

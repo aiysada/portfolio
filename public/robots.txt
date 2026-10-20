@@ -1,0 +1,13 @@
+# Indie Sign — robots.txt
+# Note: robots.txt is a web crawler directive, NOT an access control mechanism.
+# Private application routes (/owner, /settings) are protected by client-side verification and noindex tags.
+
+User-agent: *
+Allow: /
+Disallow: /owner
+Disallow: /settings
+
+# Sitemap Location
+# BEFORE DEPLOYMENT: Replace https://YOUR_PRODUCTION_DOMAIN.com with your actual production domain
+# (e.g., https://indiesign.la)
+Sitemap: https://YOUR_PRODUCTION_DOMAIN.com/sitemap.xml

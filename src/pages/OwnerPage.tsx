@@ -1,107 +1,97 @@
+/**
+ * Indie Sign — OwnerPage Component
+ * Full administration dashboard for owner management, protected by client-side PIN.
+ */
+
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Lock,
-  DollarSign,
-  Building2,
-  FileText,
-  Database,
-  ArrowLeft,
-  Clock,
-} from "lucide-react";
+import { ArrowLeft, ShieldCheck, LogOut } from "lucide-react";
 import { PageContainer } from "@/components/common/PageContainer";
-import { SectionHeading } from "@/components/common/SectionHeading";
+import { useOwnerSettings } from "@/context/OwnerSettingsContext";
+import { PinLoginCard } from "@/components/owner/PinLoginCard";
+import { OwnerSidebar, type OwnerSectionId } from "@/components/owner/OwnerSidebar";
+
+// 9 Section Components
+import { ProductsSection } from "@/components/owner/sections/ProductsSection";
+import { MaterialsSection } from "@/components/owner/sections/MaterialsSection";
+import { FeesSection } from "@/components/owner/sections/FeesSection";
+import { BusinessInfoSection } from "@/components/owner/sections/BusinessInfoSection";
+import { DocumentSettingsSection } from "@/components/owner/sections/DocumentSettingsSection";
+import { TaxDiscountSection } from "@/components/owner/sections/TaxDiscountSection";
+import { SecuritySection } from "@/components/owner/sections/SecuritySection";
+import { BackupRestoreSection } from "@/components/owner/sections/BackupRestoreSection";
+import { SeoAnalyticsSection } from "@/components/owner/sections/SeoAnalyticsSection";
+import { HistorySection } from "@/components/owner/sections/HistorySection";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 
 export function OwnerPage() {
-  const futureModules = [
-    {
-      icon: <DollarSign className="h-6 w-6 text-emerald-500" />,
-      title: "ຈັດການລາຄາ ແລະ ສິນຄ້າ (Products & Pricing)",
-      description: "ແກ້ໄຂລາຄາວັດສະດຸໄວນິວ, ສະຕິກເກີ, ອະຄຣີລິກ, ລະບົບໄຟ LED, ແລະ ເພີ່ມລາຍການສິນຄ້າໃໝ່.",
-    },
-    {
-      icon: <Building2 className="h-6 w-6 text-primary" />,
-      title: "ຂໍ້ມູນທຸລະກິດ (Business Information)",
-      description: "ແກ້ໄຂຊື່ຮ້ານ, ໂລໂກ້, ຊ່ອງທາງຕິດຕໍ່, ເບີໂທ, WhatsApp, ແລະ ບັນຊີທະນາຄານ.",
-    },
-    {
-      icon: <FileText className="h-6 w-6 text-blue-500" />,
-      title: "ຕັ້ງຄ່າເອກະສານ (Document Settings)",
-      description: "ກຳນົດເລກທີ Running No. ຂອງໃບສະເໜີລາຄາ (Quotation), ໃບແຈ້ງໜີ້ (Invoice), ແລະ ເງື່ອນໄຂການຊຳລະ.",
-    },
-    {
-      icon: <Database className="h-6 w-6 text-amber-500" />,
-      title: "ສຳຮອງ ແລະ ກູ້ຄືນຂໍ້ມູນ (Backup / Restore)",
-      description: "ສົ່ງອອກຂໍ້ມູນທັງໝົດເປັນໄຟລ໌ JSON ແລະ ນຳເຂົ້າຂໍ້ມູນສຳຮອງໂດຍບໍ່ຕ້ອງເພິ່ງພາຖານຂໍ້ມູນພາຍນອກ.",
-    },
-  ];
+  const { authState, logout } = useOwnerSettings();
+  const [currentSection, setCurrentSection] = useState<OwnerSectionId>("products");
+
+  // If user is not authenticated, display PIN login screen
+  if (!authState.isAuthenticated) {
+    return (
+      <PageContainer size="default">
+        <div className="py-6 sm:py-10">
+          <PinLoginCard />
+        </div>
+      </PageContainer>
+    );
+  }
 
   return (
     <PageContainer size="default">
-      {/* Page Header */}
-      <SectionHeading
-        badge="ລະບົບຈັດການສຳລັບເຈົ້າຂອງຮ້ານ"
-        title="Owner Settings & Administration"
-        subtitle="ພື້ນທີ່ຈັດການຂໍ້ມູນຮ້ານ, ປັບປຸງລາຄາສິນຄ້າ ແລະ ການຕັ້ງຄ່າເອກະສານ"
-      />
-
-      {/* Security & In-Progress Alert Banner */}
-      <div className="mb-12 rounded-3xl border border-primary/30 bg-gradient-to-br from-card via-card to-orange-500/10 p-8 sm:p-10 text-center shadow-lg max-w-3xl mx-auto">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-4">
-          <Lock className="h-8 w-8" />
-        </div>
-
-        <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3.5 py-1 text-xs font-semibold text-orange-600 dark:text-orange-400 mb-3">
-          <Clock className="h-3.5 w-3.5" />
-          <span>ໂຄງສ້າງໜ້າຮອງຮັບ (Placeholder Mode)</span>
-        </div>
-
-        <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-          ລະບົບຈັດການເຈົ້າຂອງຮ້ານຈະເປີດໃຊ້ງານໃນຂັ້ນຕອນຖັດໄປ
-        </h3>
-
-        <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
-          ລະບົບຄວາມປອດໄພດ້ວຍລະຫັດ PIN, ການແກ້ໄຂລາຄາສິນຄ້າ, ແລະ ການສຳຮອງຂໍ້ມູນ LocalStorage/JSON ຈະຖືກນຳມາເຊື່ອມຕໍ່ໃນຂັ້ນຕອນຕໍ່ໄປຕາມແຜນງານ.
-        </p>
-
-        <div className="mt-6 flex justify-center">
-          <Button asChild variant="outline" className="rounded-xl">
-            <Link to="/" className="flex items-center gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              <span>ກັບຄືນສູ່ໜ້າຫຼັກ</span>
+      {/* Dashboard Top Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 py-4 mb-6 border-b border-border">
+        <div className="flex items-center gap-3">
+          <Button asChild variant="outline" size="sm" className="rounded-xl text-xs h-9">
+            <Link to="/" className="flex items-center gap-1.5">
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>ກັບຄືນໜ້າຫຼັກ</span>
             </Link>
           </Button>
+
+          <div className="flex items-center gap-2">
+            <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <ShieldCheck className="h-4 w-4" />
+              ເຈົ້າຂອງຮ້ານ (Owner Session Active)
+            </span>
+          </div>
         </div>
+
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={logout}
+          className="text-xs text-destructive border-destructive/30 hover:bg-destructive/10 h-9"
+        >
+          <LogOut className="h-3.5 w-3.5 mr-1.5" />
+          ອອກຈາກລະບົບ (Logout)
+        </Button>
       </div>
 
-      {/* Feature Preview Cards */}
-      <div className="space-y-6 max-w-4xl mx-auto">
-        <div className="text-center sm:text-left mb-6">
-          <Badge variant="orange" className="mb-2 text-xs">
-            ລະບົບຈັດການທີ່ຈະພ້ອມໃຊ້ງານ
-          </Badge>
-          <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-            ຟັງຊັນທີ່ຈະເປີດໃຫ້ເຈົ້າຂອງຮ້ານຈັດການໄດ້ດ້ວຍຕົນເອງ
-          </h3>
-        </div>
+      {/* Main 2-Column Layout */}
+      <div className="flex flex-col lg:flex-row gap-6 items-start pb-12">
+        {/* Left Sidebar */}
+        <OwnerSidebar
+          currentSection={currentSection}
+          onSelectSection={setCurrentSection}
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {futureModules.map((m, idx) => (
-            <Card
-              key={idx}
-              className="border-border/80 bg-card hover:border-primary/40 transition-colors"
-            >
-              <CardContent className="p-6 space-y-3">
-                <div className="rounded-xl bg-muted p-2.5 w-fit">{m.icon}</div>
-                <h4 className="text-base font-bold text-foreground">{m.title}</h4>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  {m.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+        {/* Right Content Panel */}
+        <div className="flex-1 w-full min-w-0 rounded-3xl border border-border bg-card p-5 sm:p-7 shadow-sm">
+          {currentSection === "products" && <ProductsSection />}
+          {currentSection === "materials" && <MaterialsSection />}
+          {currentSection === "fees" && <FeesSection />}
+          {currentSection === "business" && <BusinessInfoSection />}
+          {currentSection === "documents" && <DocumentSettingsSection />}
+          {currentSection === "tax-discount" && <TaxDiscountSection />}
+          {currentSection === "security" && <SecuritySection />}
+          {currentSection === "backup" && <BackupRestoreSection />}
+          {currentSection === "seo" && <SeoAnalyticsSection />}
+          {currentSection === "history" && <HistorySection />}
         </div>
       </div>
     </PageContainer>

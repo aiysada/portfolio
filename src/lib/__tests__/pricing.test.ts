@@ -433,3 +433,110 @@ describe("10. Money and Number Formatting", () => {
     expect(formatAreaM2(NaN)).toBe("0 m²");
   });
 });
+
+describe("11. Prompt 09 Mandatory Verification & Edge Cases", () => {
+  it("verifies the required benchmark example (Black-back vinyl 200cm × 100cm, qty 2 @ 130,000 LAK/m²)", () => {
+    // Width: 200 cm = 2 m
+    // Height: 100 cm = 1 m
+    // Area per item: 2 m × 1 m = 2 m²
+    // Quantity: 2
+    // Unit price: 130,000 LAK/m²
+    // Expected subtotal: 2 m² × 130,000 LAK × 2 = 520,000 LAK before other charges
+    const line = computeLine({
+      pricingMethod: "per_m2",
+      width: 200,
+      height: 100,
+      dimensionUnit: "cm",
+      unitPrice: 130_000,
+      quantity: 2,
+      minPrice: 0,
+    });
+
+    expect(line.areaM2).toBe(2);
+    expect(line.lineSubtotal).toBe(520_000);
+    expect(line.effectiveSubtotal).toBe(520_000);
+  });
+
+  it("verifies the equivalent calculation in millimeters (2000mm × 1000mm)", () => {
+    const line = computeLine({
+      pricingMethod: "per_m2",
+      width: 2000,
+      height: 1000,
+      dimensionUnit: "mm",
+      unitPrice: 130_000,
+      quantity: 2,
+      minPrice: 0,
+    });
+
+    expect(line.areaM2).toBe(2);
+    expect(line.lineSubtotal).toBe(520_000);
+  });
+
+  it("handles decimal dimensions accurately (e.g. 1.25m × 2.4m)", () => {
+    const line = computeLine({
+      pricingMethod: "per_m2",
+      width: 1.25,
+      height: 2.4,
+      dimensionUnit: "m",
+      unitPrice: 100_000,
+      quantity: 3,
+      minPrice: 0,
+    });
+
+    // 1.25 × 2.4 = 3 m² per item
+    // 3 m² × 100,000 × 3 = 900,000 LAK
+    expect(line.areaM2).toBeCloseTo(3, 4);
+    expect(line.lineSubtotal).toBe(900_000);
+  });
+
+  it("handles zero dimensions and zero quantity safely without throwing or NaN", () => {
+    const zeroWidth = computeLine({
+      pricingMethod: "per_m2",
+      width: 0,
+      height: 100,
+      dimensionUnit: "cm",
+      unitPrice: 130_000,
+      quantity: 2,
+      minPrice: 0,
+    });
+    expect(zeroWidth.areaM2).toBe(0);
+    expect(zeroWidth.lineSubtotal).toBe(0);
+
+    const zeroQty = computeLine({
+      pricingMethod: "per_m2",
+      width: 200,
+      height: 100,
+      dimensionUnit: "cm",
+      unitPrice: 130_000,
+      quantity: 0,
+      minPrice: 0,
+    });
+    expect(zeroQty.lineSubtotal).toBe(0);
+  });
+
+  it("rejects negative dimensions and negative quantity safely", () => {
+    const negativeDim = computeLine({
+      pricingMethod: "per_m2",
+      width: -200,
+      height: 100,
+      dimensionUnit: "cm",
+      unitPrice: 130_000,
+      quantity: 2,
+      minPrice: 0,
+    });
+    expect(negativeDim.areaM2).toBe(0);
+    expect(negativeDim.lineSubtotal).toBe(0);
+
+    const negativeQty = computeLine({
+      pricingMethod: "per_m2",
+      width: 200,
+      height: 100,
+      dimensionUnit: "cm",
+      unitPrice: 130_000,
+      quantity: -5,
+      minPrice: 0,
+    });
+    expect(negativeQty.lineSubtotal).toBe(0);
+  });
+});
+
