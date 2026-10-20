@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Calculator,
+  ClipboardList,
   CheckCircle2,
   AlertCircle,
   ArrowRight,
-  PhoneCall,
 } from "lucide-react";
 import { PageContainer } from "@/components/common/PageContainer";
 import { SectionHeading } from "@/components/common/SectionHeading";
@@ -36,10 +35,10 @@ export function ServicesPage() {
         title="ບໍລິການອອກແບບ ແລະ ຜະລິດປ້າຍຄົບວົງຈອນ"
         subtitle="ລາຍການວັດສະດຸ, ງານພິມ, ແລະ ປະເພດປ້າຍມາດຕະຖານ ພ້ອມລາຄາເລີ່ມຕົ້ນທີ່ໂປ່ງໃສ"
         action={
-          <Button asChild variant="orangeGlow" size="sm" className="rounded-xl font-medium">
-            <Link to="/calculator" className="flex items-center gap-2">
-              <Calculator className="h-4 w-4" />
-              <span>ຄຳນວນລາຄາປ້າຍອັດຕະໂນມັດ</span>
+          <Button asChild size="sm" className="rounded-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-sm shadow-orange-500/25">
+            <Link to="/order" className="flex items-center gap-2">
+              <ClipboardList className="h-4 w-4" />
+              <span>ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາ</span>
             </Link>
           </Button>
         }
@@ -166,8 +165,8 @@ export function ServicesPage() {
                   size="sm"
                   className="w-full justify-between hover:bg-primary hover:text-primary-foreground hover:border-primary rounded-lg transition-colors group"
                 >
-                  <Link to="/calculator">
-                    <span>ຄຳນວນລາຄາລາຍການນີ້</span>
+                  <Link to="/order">
+                    <span>ສັ່ງເຮັດປ້າຍປະເພດນີ້</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
@@ -184,21 +183,21 @@ export function ServicesPage() {
             ຕ້ອງການໃບສະເໜີລາຄາ ຫຼື ປ້າຍຂະໜາດພິເສດ?
           </h3>
           <p className="text-sm text-muted-foreground max-w-xl">
-            ຕິດຕໍ່ທີມງານ Indie Sign ໄດ້ທັນທີ ພວກເຮົາພ້ອມໃຫ້ຄຳປຶກສາ ແລະ ປະເມີນລາຄາໃຫ້ທ່ານຢ່າງວ່ອງໄວ.
+            ຕິດຕໍ່ທີມງານ Indie Sign ໄດ້ທັນທີ ຫຼື ຕອບຊຸດສອບຖາມຄວາມຕ້ອງການເພື່ອປະເມີນລາຄາໄດ້ທັນທີ.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
-          <Button asChild variant="orangeGlow" className="rounded-xl">
-            <a href={BUSINESS_CONFIG.social.whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <span>ສອບຖາມຜ່ານ WhatsApp</span>
-            </a>
+          <Button asChild size="default" className="rounded-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-md shadow-orange-500/25">
+            <Link to="/order" className="flex items-center gap-2">
+              <ClipboardList className="h-4 w-4" />
+              <span>ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາ</span>
+            </Link>
           </Button>
 
           <Button asChild variant="outline" className="rounded-xl">
-            <a href={`tel:${BUSINESS_CONFIG.contact.phone}`}>
-              <PhoneCall className="h-4 w-4 mr-2" />
-              <span>{BUSINESS_CONFIG.contact.displayPhone}</span>
+            <a href={BUSINESS_CONFIG.social.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <span>ສອບຖາມຜ່ານ WhatsApp</span>
             </a>
           </Button>
         </div>

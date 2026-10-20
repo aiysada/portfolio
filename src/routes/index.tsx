@@ -7,10 +7,10 @@ import { PageLoadingFallback } from "@/components/common/PageLoadingFallback";
 // Route-level code splitting for production performance & bundle reduction
 const ServicesPage = lazy(() => import("@/pages/ServicesPage").then((m) => ({ default: m.ServicesPage })));
 const PortfolioPage = lazy(() => import("@/pages/PortfolioPage").then((m) => ({ default: m.PortfolioPage })));
-const CalculatorPage = lazy(() => import("@/pages/CalculatorPage").then((m) => ({ default: m.CalculatorPage })));
 const AboutPage = lazy(() => import("@/pages/AboutPage").then((m) => ({ default: m.AboutPage })));
 const ContactPage = lazy(() => import("@/pages/ContactPage").then((m) => ({ default: m.ContactPage })));
 const OwnerPage = lazy(() => import("@/pages/OwnerPage").then((m) => ({ default: m.OwnerPage })));
+const OrderPage = lazy(() => import("@/pages/OrderPage").then((m) => ({ default: m.OrderPage })));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })));
 
 export const router = createBrowserRouter([
@@ -44,12 +44,25 @@ export const router = createBrowserRouter([
         element: <Navigate to="/services" replace />,
       },
       {
+        // Replaced calculator page with customer order / questionnaire form
         path: "calculator",
+        element: <Navigate to="/order" replace />,
+      },
+      {
+        path: "order",
         element: (
           <Suspense fallback={<PageLoadingFallback />}>
-            <CalculatorPage />
+            <OrderPage />
           </Suspense>
         ),
+      },
+      {
+        path: "questionnaire",
+        element: <Navigate to="/order" replace />,
+      },
+      {
+        path: "inquiry",
+        element: <Navigate to="/order" replace />,
       },
       {
         path: "about",

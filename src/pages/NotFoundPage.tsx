@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AlertCircle, Home, ArrowLeft, Calculator } from "lucide-react";
+import { AlertCircle, Home, ArrowLeft, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function NotFoundPage() {
@@ -21,17 +21,17 @@ export function NotFoundPage() {
       </p>
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <Button asChild variant="orangeGlow" size="lg" className="rounded-xl">
+        <Button asChild variant="orangeGlow" size="lg" className="rounded-xl font-bold">
           <Link to="/" className="flex items-center gap-2">
             <Home className="h-4 w-4" />
             <span>ກັບຄືນສູ່ໜ້າຫຼັກ</span>
           </Link>
         </Button>
 
-        <Button asChild variant="outline" size="lg" className="rounded-xl">
-          <Link to="/calculator" className="flex items-center gap-2">
-            <Calculator className="h-4 w-4 text-primary" />
-            <span>ຄຳນວນລາຄາປ້າຍ</span>
+        <Button asChild variant="outline" size="lg" className="rounded-xl border-orange-500/40 text-orange-600 dark:text-orange-400 hover:bg-orange-500/10 font-bold">
+          <Link to="/order" className="flex items-center gap-2">
+            <ClipboardList className="h-4 w-4" />
+            <span>ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາ</span>
           </Link>
         </Button>
 

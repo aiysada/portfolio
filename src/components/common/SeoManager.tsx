@@ -46,6 +46,11 @@ const ROUTE_SEO: Record<string, RouteSeoConfig> = {
     description: "ຕິດຕໍ່ສອບຖາມ ປຶກສາງານປ້າຍ ສົ່ງແບບປະເມີນລາຄາ ຫຼື ຕິດຕໍ່ຜ່ານ WhatsApp ກັບທີມງານ Indie Sign ໄດ້ທັນທີ",
     keywords: "ຕິດຕໍ່ Indie Sign, ເບີໂທຮ້ານປ້າຍ, WhatsApp Indie Sign, ຮ້ານປ້າຍ ວຽງຈັນ",
   },
+  "/order": {
+    title: "ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາວຽກພິມ — Indie Sign",
+    description: "ແບບຟອມສອບຖາມຄວາມຕ້ອງການສັ່ງເຮັດປ້າຍ ພິມໄວນິວ, ສະຕິກເກີ, ຕັດຕົວໜັງສືນູນ CNC Laser, ທຸງຊາຍຫາດ ພ້ອມສົ່ງຫາ WhatsApp ໄດ້ທັນທີ",
+    keywords: "ສັ່ງເຮັດປ້າຍ, ປະເມີນລາຄາປ້າຍ, ພິມໄວນິວ, ພິມສະຕິກເກີ, ຕັດຕົວໜັງສືນູນ, ທຸງຊາຍຫາດ, Indie Sign",
+  },
   "/owner": {
     title: "ລະບົບຈັດການຮ້ານ (Owner Settings) — Indie Sign",
     description: "ລະບົບຈັດການຂໍ້ມູນຮ້ານ, ລາຄາວັດສະດຸ, ການຕັ້ງຄ່າເອກະສານ, ແລະ ປະຫວັດໃບສະເໜີລາຄາ",

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {
-  Calculator,
   ArrowRight,
   ShieldCheck,
   Sparkles,
@@ -13,6 +12,7 @@ import {
   CheckCircle2,
   PhoneCall,
   MessageCircle,
+  ClipboardList,
 } from "lucide-react";
 import { PageContainer } from "@/components/common/PageContainer";
 import { SectionHeading } from "@/components/common/SectionHeading";
@@ -84,19 +84,23 @@ export function HomePage() {
                 ພວກເຮົາພ້ອມໃຫ້ຄຳປຶກສາ ແລະ ປະເມີນລາຄາເບື້ອງຕົ້ນຢ່າງວ່ອງໄວ ດ້ວຍມາດຕະຖານວັດສະດຸຄຸນນະພາບສູງ.
               </p>
 
-              {/* Primary CTA (/calculator) & Secondary CTA (/portfolio) */}
+              {/* Primary CTA (/order) & Secondary CTA (/portfolio) */}
               <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                <Button asChild variant="orangeGlow" size="lg" className="rounded-xl font-medium text-sm sm:text-base">
-                  <Link to="/calculator" className="flex items-center gap-2">
-                    <Calculator className="h-5 w-5" />
-                    <span>ຄຳນວນລາຄາປ້າຍ</span>
+                <Button
+                  asChild
+                  size="lg"
+                  className="rounded-2xl font-bold text-sm sm:text-base px-6 h-13 bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg shadow-orange-500/30 hover:shadow-orange-500/40 hover:scale-[1.02] transition-all"
+                >
+                  <Link to="/order" className="flex items-center gap-2.5">
+                    <ClipboardList className="h-5 w-5" />
+                    <span>ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາ</span>
+                    <ArrowRight className="h-4 w-4 ml-0.5" />
                   </Link>
                 </Button>
 
-                <Button asChild variant="outline" size="lg" className="rounded-xl font-medium text-sm sm:text-base">
+                <Button asChild variant="outline" size="lg" className="rounded-2xl font-semibold text-sm sm:text-base px-6 h-13 border-border hover:bg-muted/50">
                   <Link to="/portfolio" className="flex items-center gap-2">
                     <span>ເບິ່ງຕົວຢ່າງຜົນງານ</span>
-                    <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
               </div>
@@ -304,10 +308,14 @@ export function HomePage() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Button asChild variant="orangeGlow" size="lg" className="rounded-xl font-medium">
-                <Link to="/calculator" className="flex items-center gap-2">
-                  <Calculator className="h-5 w-5" />
-                  <span>ຄຳນວນລາຄາປ້າຍ</span>
+              <Button
+                asChild
+                size="lg"
+                className="rounded-2xl font-bold text-sm sm:text-base px-7 h-13 bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg shadow-orange-500/30 hover:scale-[1.02] transition-all"
+              >
+                <Link to="/order" className="flex items-center gap-2.5">
+                  <ClipboardList className="h-5 w-5" />
+                  <span>ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາ</span>
                 </Link>
               </Button>
 

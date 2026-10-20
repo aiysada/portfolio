@@ -13,19 +13,19 @@ export const MAIN_NAV_ITEMS: NavItem[] = [
     href: "/",
   },
   {
+    title: "ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາ",
+    href: "/order",
+    isBadge: true,
+    badgeText: "ຟອມສັ່ງ",
+    isHighlight: true,
+  },
+  {
     title: "ຜົນງານປ້າຍ",
     href: "/portfolio",
   },
   {
     title: "ສິນຄ້າ & ບໍລິການ",
     href: "/services",
-  },
-  {
-    title: "ຄຳນວນລາຄາປ້າຍ",
-    href: "/calculator",
-    isBadge: true,
-    badgeText: "ເຄື່ອງມື",
-    isHighlight: true,
   },
   {
     title: "ກ່ຽວກັບພວກເຮົາ",
@@ -47,9 +47,9 @@ export const FOOTER_NAV_GROUPS = [
     title: "ເມນູຫຼັກ",
     items: [
       { title: "ໜ້າຫຼັກ (Home)", href: "/" },
+      { title: "ສັ່ງເຮັດປ້າຍ / ປະເມີນລາຄາ (Order)", href: "/order" },
       { title: "ຜົນງານປ້າຍ (Portfolio)", href: "/portfolio" },
       { title: "ສິນຄ້າ & ບໍລິການ (Services)", href: "/services" },
-      { title: "ຄຳນວນລາຄາປ້າຍ (Calculator)", href: "/calculator" },
     ],
   },
   {

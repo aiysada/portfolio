@@ -152,14 +152,18 @@ export const OwnerSidebar: React.FC<OwnerSidebarProps> = ({
                     : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
                 }`}
               >
-                <div className={`${isActive ? "text-primary-foreground" : "text-muted-foreground"}`}>
+                <div
+                  className={`${isActive ? "text-primary-foreground" : "text-muted-foreground"}`}
+                >
                   {sec.icon}
                 </div>
                 <div>
                   <span className="block leading-tight">{sec.labelLao}</span>
                   <span
                     className={`text-[10px] block opacity-80 ${
-                      isActive ? "text-primary-foreground/90" : "text-muted-foreground"
+                      isActive
+                        ? "text-primary-foreground/90"
+                        : "text-muted-foreground"
                     }`}
                   >
                     {sec.labelEn}

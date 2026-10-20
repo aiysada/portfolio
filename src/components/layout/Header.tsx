@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Menu, X, Calculator, PhoneCall } from "lucide-react";
+import { Menu, X, Calculator, PhoneCall, ClipboardList } from "lucide-react";
 import { BrandLogo } from "@/components/common/BrandLogo";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -35,25 +35,25 @@ export function Header() {
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
           {MAIN_NAV_ITEMS.map((item) => {
             if (item.isHighlight) {
-              // Prominent Price Calculator Call to Action
               return (
                 <NavLink
                   key={item.href}
                   to={item.href}
                   className={({ isActive }) =>
                     cn(
-                      "relative ml-2 mr-1 flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all",
+                      "group relative ml-3 mr-1 flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-all duration-200",
                       isActive
-                        ? "bg-primary text-primary-foreground shadow-sm shadow-orange-500/25"
-                        : "bg-orange-500/10 text-orange-600 dark:text-orange-400 hover:bg-orange-500/20 border border-orange-500/30"
+                        ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/30 ring-2 ring-orange-500/40"
+                        : "bg-gradient-to-r from-orange-500/15 via-orange-500/10 to-amber-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/40 hover:from-orange-500 hover:to-amber-500 hover:text-white hover:border-transparent hover:shadow-md hover:shadow-orange-500/25 hover:scale-[1.02]"
                     )
                   }
                 >
-                  <Calculator className="h-3.5 w-3.5" />
+                  <ClipboardList className="h-4 w-4 transition-transform group-hover:scale-110" />
                   <span>{item.title}</span>
-                  <Badge variant="orange" className="ml-0.5 text-[10px] px-1 py-0 uppercase">
-                    PRO
-                  </Badge>
+                  <span className="relative flex h-2 w-2 ml-0.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                  </span>
                 </NavLink>
               );
             }
@@ -77,18 +77,17 @@ export function Header() {
           })}
         </nav>
 
-        {/* Right Action Icons: Calculator Shortcut (on medium screens) + Theme Toggle + Call CTA */}
+        {/* Right Action Icons: Prominent Order CTA for Tablets/Medium + Theme Toggle + Call CTA */}
         <div className="flex items-center gap-2">
-          {/* Prominent Calculator CTA for Tablets/Medium screens if not expanded */}
+          {/* Prominent Order CTA for Tablets/Medium screens if not expanded */}
           <Button
             asChild
-            variant="outline"
             size="sm"
-            className="hidden md:flex lg:hidden items-center gap-1.5 border-primary/30 text-primary hover:bg-primary/10 rounded-lg text-xs font-semibold"
+            className="hidden md:flex lg:hidden items-center gap-1.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-sm shadow-orange-500/25 rounded-xl text-xs font-bold transition-transform hover:scale-[1.02]"
           >
-            <Link to="/calculator">
-              <Calculator className="h-3.5 w-3.5 text-primary" />
-              <span>ຄຳນວນລາຄາ</span>
+            <Link to="/order">
+              <ClipboardList className="h-4 w-4" />
+              <span>ສັ່ງເຮັດປ້າຍ</span>
             </Link>
           </Button>
 
@@ -141,7 +140,13 @@ export function Header() {
                 }
               >
                 <div className="flex items-center gap-2">
-                  {item.isHighlight && <Calculator className="h-4 w-4 text-primary" />}
+                  {item.isHighlight && (
+                    item.href === "/order" ? (
+                      <ClipboardList className="h-4 w-4 text-primary" />
+                    ) : (
+                      <Calculator className="h-4 w-4 text-primary" />
+                    )
+                  )}
                   <span>{item.title}</span>
                 </div>
                 {item.isBadge && (

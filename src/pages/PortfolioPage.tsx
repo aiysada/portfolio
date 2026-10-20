@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, Maximize2, Calculator, ArrowRight, Info } from "lucide-react";
+import { Sparkles, Maximize2, ClipboardList, ArrowRight, Info } from "lucide-react";
 import { PageContainer } from "@/components/common/PageContainer";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { PortfolioLightbox } from "@/components/common/PortfolioLightbox";
@@ -33,10 +33,10 @@ export function PortfolioPage() {
         title="ຄັງຮວບຮວມຜົນງານ ແລະ ຮູບແບບປ້າຍ"
         subtitle="ເລືອກຊົມຕົວຢ່າງງານປ້າຍໂຄສະນາແຕ່ລະປະເພດ ເພື່ອເປັນແນວທາງໃນການອອກແບບ ແລະ ຕັດສິນໃຈເລືອກວັດສະດຸ"
         action={
-          <Button asChild variant="orangeGlow" size="sm" className="rounded-xl">
-            <Link to="/calculator" className="flex items-center gap-1.5">
-              <Calculator className="h-4 w-4" />
-              <span>ຄຳນວນລາຄາປ້າຍ</span>
+          <Button asChild size="sm" className="rounded-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-sm shadow-orange-500/25">
+            <Link to="/order" className="flex items-center gap-1.5">
+              <ClipboardList className="h-4 w-4" />
+              <span>ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາ</span>
             </Link>
           </Button>
         }
@@ -162,10 +162,10 @@ export function PortfolioPage() {
         </div>
 
         <div className="mt-6 sm:mt-0 flex flex-wrap items-center justify-center sm:justify-end gap-3 shrink-0">
-          <Button asChild variant="orangeGlow" className="rounded-xl">
-            <Link to="/calculator" className="flex items-center gap-2">
-              <Calculator className="h-4 w-4" />
-              <span>ໄປໜ້າຄຳນວນລາຄາ</span>
+          <Button asChild size="default" className="rounded-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-md shadow-orange-500/25">
+            <Link to="/order" className="flex items-center gap-2">
+              <ClipboardList className="h-4 w-4" />
+              <span>ສັ່ງເຮັດປ້າຍ & ປະເມີນລາຄາ</span>
             </Link>
           </Button>
 
