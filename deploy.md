@@ -20,7 +20,7 @@
      - Variable name: `NODE_VERSION`
      - Value: `20`
 6. ກົດ **Save and Deploy**.
-7. ໄຟລ໌ `_redirects` ທີ່ເຮົາຕັ້ງຄ່າໄວ້ຈະຈັດການ SPA Routing ໃຫ້ອັດຕະໂນມັດ (Refresh ບໍ່ຕິດ 404).
+7. ລະບົບມີ [wrangler.jsonc](file:///Users/dev/Desktop/DEV/portfolio/wrangler.jsonc) ຕັ້ງຄ່າ Single-Page-Application ໄວ້ແລ້ວ (Refresh ທຸກໜ້າບໍ່ຕິດ 404).
 
 ### ວິທີທີ 2: Deploy ດ້ວຍ Wrangler CLI ໂດຍກົງ
 ```bash
